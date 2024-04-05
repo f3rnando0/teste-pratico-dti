@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shippori+Mincho&display=swap')
+
+$primary: #0D1B2A
+$secondary: #1B263B
+$primary-text: #415A77
+$secondary-text: #778DA9
+$light: #E0E1DD
+
+body
+    background-color: $primary
+    font-family: 'Poppins', sans-serif
+    padding: 0
+    margin: 0
+
+.wrapper #first
+    color: $secondary-text
+    font-size: 30px
+    padding-bottom: 40px
+    font-family: "Shippori Mincho", sans-serif
+    font-weight: 700
+
+.wrapper #other
+    color: $primary-text
+
+main
+    position: absolute
+    left: 50%
+    top: 50%
+    -webkit-transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%)
+    background-color: $secondary
+    width: 400px
+    border-radius: 15px
+
+.wrapper
+    text-align: center
+    flex-direction: column
+    flex-wrap: wrap
+    justify-content: center
+    display: flex
+    border-radius: 8px
+    margin-top: 80px
+    margin-bottom: 80px
+
+.inputs
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    justify-content: center
+    align-content: center
+    gap: 10px
+
+.inputs input
+    width: 250px
+    height: 25px
+    padding: 15px
+    border: 0
+    outline: 0
+    border-radius: 2px
+    font-size: 15px
+    background-color: $primary
+
+::placeholder
+    color: $light
+
+::-ms-input-placeholder
+    color: $light
+
+input, select, textarea
+    color: $light
+
+input:focus
+    outline: 1px solid $secondary-text
+
+.wrapper .btn
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    padding-top: 30px
+    padding-bottom: 30px
+
+.wrapper button
+    width: 270px
+    height: 50px
+    background-color: $light
+    color: $primary
+    border: none
+    cursor: pointer
+    font-size: 17px
+    font-weight: 500
+    border-radius: 2px
+
+.wrapper button:hover
+    filter: brightness(1.2)
+    transition: 0.2s
+
+#register
+    font-size: 16px
+    font-family: "Poppins", sans-serif
+    font-weight: 400
+    cursor: pointer
+    color: $secondary-text
+
+#register:hover
+    filter: brightness(1.2)
+
+.error-text
+    font-size: 14px
+    color: red
+
+@media screen and (max-width: 600px)
+    .wrapper #first
+        font-size: 24px
+        padding-bottom: 30px
+    .inputs input
+        width: 200px
+        height: 25px
+        padding: 15px
+    .wrapper button
+        width: 230px
+        height: 50px
+    #register
+        font-size: 12px
