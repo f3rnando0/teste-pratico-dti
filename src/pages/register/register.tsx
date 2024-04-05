@@ -1,17 +1,19 @@
 import { useState } from "react";
-import "./login.sass";
+import "./register.sass";
 import { useNavigate } from "react-router-dom";
 import { validate } from "../../lib/utils/validator";
 import Button from "../../components/submitButton/submitButton";
 
-const Login = () => {
+const Register =() => {
   const navigator = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   const [showLoader, setShowLoader] = useState(false);
 
@@ -23,11 +25,14 @@ const Login = () => {
       case "email":
         if (emailError) setEmailError("");
         break;
+      case "name":
+        if (nameError) setNameError("");
+        break;
     }
   };
 
   const handleRedirect = (): void => {
-    navigator("/register");
+    navigator("/");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,20 +41,21 @@ const Login = () => {
     const isValid = validate(e.target.name, e.target.value);
 
     switch (e.target.name) {
+      case "name":
+        if (!isValid.success) return setNameError(isValid.error.errors[0].message) ;
+        return setName(e.target.value);
       case "email":
-        if (!isValid.success)
-          return setEmailError(isValid.error.errors[0].message);
+        if (!isValid.success) return setEmailError(isValid.error.errors[0].message);
         return setEmail(e.target.value);
       case "password":
-        if (!isValid.success)
-          return setPasswordError(isValid.error.errors[0].message);
+        if (!isValid.success) return setPasswordError(isValid.error.errors[0].message);
         return setPassword(e.target.value);
     }
     resetError(e.target.name);
   };
 
   const handleSubmit = () => {
-    if (!email || !password) return;
+    if (!name || !email || !password) return;
     setShowLoader(true);
     //logica de register
     setTimeout(() => setShowLoader(false), 5000);
@@ -64,19 +70,28 @@ const Login = () => {
           </span>
           <div className="inputs">
             <input
+              type="text"
+              placeholder="Nome"
+              autoComplete="name"
+              name="name"
+              onChange={handleChange}
+              onMouseUp={() => resetError("name")}
+            />
+            <span className="error-text">{nameError}</span>
+            <input
               type="email"
               placeholder="E-mail"
-              name="email"
               autoComplete="email"
+              name="email"
               onChange={handleChange}
               onMouseUp={() => resetError("email")}
             />
             <span className="error-text">{emailError}</span>
             <input
               type="password"
-              placeholder="Password"
-              name="password"
+              placeholder="Senha"
               onChange={handleChange}
+              name="password"
               onMouseUp={() => resetError("password")}
             />
             <span className="error-text">{passwordError}</span>
@@ -90,12 +105,12 @@ const Login = () => {
             />
           </div>
           <span id="register" onClick={handleRedirect}>
-            Não possui uma conta?
+            Já possui uma conta?
           </span>
         </div>
       </main>
     </div>
   );
-};
+}
 
-export default Login;
+export default Register;
