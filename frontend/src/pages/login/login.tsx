@@ -3,6 +3,7 @@ import "./login.sass";
 import { useNavigate } from "react-router-dom";
 import { validate } from "../../lib/utils/validator";
 import Button from "../../components/submitButton/submitButton";
+import { api } from "../../lib/api";
 
 const Login = () => {
   const navigator = useNavigate();
@@ -51,7 +52,20 @@ const Login = () => {
   const handleSubmit = () => {
     if (!email || !password) return;
     setShowLoader(true);
-    //logica de register
+    console.log(email, password);
+
+    api
+      .post("/auth/login", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {})
+      .catch((error) => {
+        if(error.response.status === 401) {
+          setPasswordError(`Email ou senha inválidos.`)
+          return setShowLoader(false)
+        }
+      });
     setTimeout(() => setShowLoader(false), 5000);
   };
 
