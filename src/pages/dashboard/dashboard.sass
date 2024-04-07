@@ -1,3 +1,52 @@
+$primary: #0D1B2A
+$secondary: #1B263B
+$primary-text: #415A77
+$secondary-text: #778DA9
+$light: #E0E1DD
+
 body
     padding: 0
     margin: 0
+
+.icon
+    float: right
+    padding-top: 12px
+    cursor: pointer
+
+.icon svg:hover
+    fill: $secondary-text
+
+.title
+    color: $secondary-text
+    font-size: 36px
+    vertical-align: 4px
+    padding-left: 15px
+
+.title-wrapper
+    display: flex
+    justify-content: space-between
+
+.leaveBtn
+    width: 80px
+    height: 40px
+    border-radius: 2px
+    border: none
+    cursor: pointer
+    text-align: center
+    background-color: $secondary-text
+
+.leaveBtn:hover
+    filter: brightness(1.2)
+    transition: 0.2s
+
+.btn
+    padding-top: 8px
+
+header
+    padding: 50px
+    padding-top: 70px
+    border-bottom: 0.2px solid $secondary
+
+@media screen and (max-width: 600px)
+    header
+        padding: 30px

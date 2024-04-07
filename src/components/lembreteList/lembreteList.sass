@@ -1,0 +1,81 @@
+$primary: #0D1B2A
+$secondary: #1B263B
+$primary-text: #415A77
+$secondary-text: #778DA9
+$light: #E0E1DD
+
+.annotation-wrapper
+    margin-left: 20px
+    margin-right: 20px
+    border: 0.2px solid $secondary
+    border-radius: 15px
+
+.annotation
+    display: flex
+    gap: 5px
+    justify-content: flex-start
+    align-content: center
+    padding: 30px
+
+.annotation span
+    font-size: 16px
+    color: $light
+
+.date
+    color: $secondary-text
+
+.buttons
+    display: flex
+    gap: 10px
+    padding-left: 40px
+
+#delete
+    background-color: #bb2124
+    border: 0
+    outline: 0
+    display: flex
+    justify-content: center
+    align-content: center
+    padding: 5px
+    border-radius: 2px
+    cursor: pointer
+    width: 30px
+    height: 30px
+
+#edit
+    background-color: #76c9b7
+    border: 0
+    outline: 0
+    display: flex
+    justify-content: center
+    align-content: center
+    padding: 5px
+    border-radius: 2px
+    cursor: pointer
+    width: 30px
+    height: 30px
+
+#edit:hover
+    filter: brightness(0.8)
+    transition: 0.2s
+
+#delete:hover
+    filter: brightness(0.8)
+    transition: 0.2s
+
+.annotation-text
+    padding-top: 2px
+    overflow-x: hidden
+    overflow-y: auto
+    max-height: 250px
+    word-break: break-all
+
+.annotation-date
+    display: flex
+    gap: 15px
+    font-size: 18px
+    padding: 20px
+
+.clip
+    min-height: 24px
+    min-width: 24px

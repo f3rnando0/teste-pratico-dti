@@ -1,0 +1,82 @@
+$primary: #0D1B2A
+$secondary: #1B263B
+$primary-text: #415A77
+$secondary-text: #778DA9
+$light: #E0E1DD
+
+.calendar-wrapper
+    display: flex
+    gap: 10px
+    justify-content: center
+    margin: auto
+    justify-items: center
+    flex-direction: column
+    padding-top: 40px
+
+#calendar-width
+    width: 400px
+    height: 100px
+
+#other-wrapper
+    display: flex
+    gap: 25px
+    justify-items: center
+
+#other-wrapper h1
+    font-weight: 500
+    font-size: 18px
+    padding-left: 10px
+
+.icons
+    display: inline-flex
+    align-items: center
+    gap: 7px
+
+.icon-style
+    cursor: pointer
+
+.days
+    display: grid
+    grid-template-columns: repeat(7, minmax(0, 1fr))
+
+.days-text
+    text-align: center
+    font-size: 16px
+    height: 33px
+    width: 56px
+    display: grid
+    place-content: center
+    color: $secondary-text
+
+.calendar-days
+    padding: 8px
+    text-align: center
+    height: 22px
+    display: grid
+    place-content: center
+    font-size: 8px
+    border-top-width: 1px
+
+.calendarNumber:hover
+    background-color: #00000011
+    border-radius: 50%
+
+.darker
+    color: #a3a3a3
+
+.todayBg
+    background-color: $secondary-text
+    color: #f1f1f1
+
+.calendarNumber
+    width: 35px
+    height: 35px
+    border-radius: 50%
+    display: grid
+    place-content: center
+    cursor: pointer
+    font-weight: 400
+
+.bgBlack
+    background-color: black !important
+    color: #f1f1f1
