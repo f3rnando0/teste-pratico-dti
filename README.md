@@ -8,7 +8,7 @@ After downloading the project, you can open each folder and do:
 `npm install -g tsc`
 
 ## Client-side
-To run the clint-side of the project, you need to type:
+To run the client-side of the project, you need to type:
 `npm run start` for development or `npm run build` for production.
 
 ## Server-side
