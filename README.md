@@ -20,4 +20,4 @@ Also, you need to set the environment variables listed below:
 
 2. **JWT_SECRET_KEY**: The secret to be used in JWT encryption. This has to be a string.
 
-3. **CLIENT_URL**: The URL of your client-side application. Don't forget to add https:// or https://. This also needs to be a string.
+3. **CLIENT_URL**: The URL of your client-side application. Don't forget to add http:// or https://. This also needs to be a string.
