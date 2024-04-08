@@ -7,7 +7,8 @@ const schema = z.object({
   NODE_ENV: z.enum(["development", "production"]).default("development"),
   PORT: z.number().default(3000),
   DATABASE_URI: z.string(),
-  JWT_SECRET_KEY: z.string()
+  JWT_SECRET_KEY: z.string(),
+  CLIENT_URL: z.string(),
 });
 
 const _env = schema.safeParse(process.env);

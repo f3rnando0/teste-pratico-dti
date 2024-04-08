@@ -3,16 +3,20 @@ import "./login.sass";
 import { useNavigate } from "react-router-dom";
 import { validate } from "../../lib/utils/validator";
 import Button from "../../components/submitButton/submitButton";
-import { api } from "../../lib/api";
+import { useLoginMutation } from "../../lib/features/auth/authApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../lib/features/auth/authSlice";
 
 const Login = () => {
-  const navigator = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const navigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   const [showLoader, setShowLoader] = useState(false);
 
@@ -28,7 +32,7 @@ const Login = () => {
   };
 
   const handleRedirect = (): void => {
-    navigator("/register");
+    navigate("/register");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,27 +53,27 @@ const Login = () => {
     resetError(e.target.name);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email || !password) return;
     setShowLoader(true);
-    console.log(email, password);
 
-    api
-      .post("/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {})
-      .catch((error) => {
-        if(error.response.status === 401) {
-          setPasswordError(`Email ou senha inválidos.`)
-          return setShowLoader(false)
-        }
-      });
-    setTimeout(() => setShowLoader(false), 5000);
+    try {
+      const userData = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...userData }));
+      navigate("/dashboard");
+    } catch (error: any) {
+      setPasswordError(
+        error.data.errors[0].message === "Unathorized"
+          ? "E-mail ou senha inválidos."
+          : "Unathorized"
+      );
+      return setShowLoader(false);
+    }
   };
 
-  return (
+  const content = isLoading ? (
+    <h1>Loading...</h1>
+  ) : (
     <div key={"random"}>
       <main>
         <div className="wrapper">
@@ -110,6 +114,8 @@ const Login = () => {
       </main>
     </div>
   );
+
+  return content;
 };
 
 export default Login;

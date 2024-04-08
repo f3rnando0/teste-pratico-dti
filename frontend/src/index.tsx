@@ -1,31 +1,52 @@
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 import {
+  BrowserRouter,
   createBrowserRouter,
-  RouterProvider,
+  Route,
+  Routes,
 } from "react-router-dom";
-import Login from './pages/login/login';
-import Register from './pages/register/register';
-import Dashboard from './pages/dashboard/dashboard';
+import Login from "./pages/login/login";
+import Register from "./pages/register/register";
+import Dashboard from "./pages/dashboard/dashboard";
+import { store } from "./lib/store";
+import { Provider } from "react-redux";
+import React from "react";
+import { RequireAuth } from "./components/requireAuth/requireAuth";
+import { Layout } from "./components/layout/layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/register",
-    element: <Register />
+    element: <Register />,
   },
   {
     path: "/dashboard",
-    element: <Dashboard />
-  }
+    element: <Dashboard />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index path="/" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route element={<RequireAuth />}>
+              <Route path="/dashboard" element={<Dashboard />}></Route>
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
 );

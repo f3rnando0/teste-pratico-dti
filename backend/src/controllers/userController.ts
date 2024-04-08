@@ -62,7 +62,7 @@ export class UserController {
 
       return response.status(200).json({ user, accessToken });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error instanceof ZodError) {
         throw new BadRequestError({
           code: 400,
@@ -75,7 +75,7 @@ export class UserController {
   }
 
   async me(request: Request, response: Response) {
-    const token = request.cookies["access_token"];
+    const token = request.headers["authorization"].toString();
 
     const isValid = verify(token, env.JWT_SECRET_KEY) as JwtPayload;
 
@@ -93,7 +93,7 @@ export class UserController {
 
   async createAnnotation(request: Request, response: Response) {
     const { annotationName, annotationDate } = request.body;
-    const token = request.cookies["access_token"];
+    const token = request.headers["authorization"].toString();   
 
     if (!token)
       throw new UnathorizedError({ code: 401, message: "Unathorized" });
@@ -133,7 +133,7 @@ export class UserController {
 
   async deleteAnnotation(request: Request, response: Response) {
     const { annotationId } = request.params;
-    const token = request.cookies["access_token"];
+    const token = request.headers["authorization"].toString();   
 
     if (!token)
       throw new UnathorizedError({ code: 401, message: "Unathorized" });
@@ -170,7 +170,7 @@ export class UserController {
   }
   async patchAnnotation(request: Request, response: Response) {
     const { annotationId, annotationName, annotationDate } = request.body;
-    const token = request.cookies["access_token"];
+    const token = request.headers["authorization"].toString();   
 
     if (!token)
       throw new UnathorizedError({ code: 401, message: "Unathorized" });

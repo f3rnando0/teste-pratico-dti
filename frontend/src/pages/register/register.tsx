@@ -3,9 +3,10 @@ import "./register.sass";
 import { useNavigate } from "react-router-dom";
 import { validate } from "../../lib/utils/validator";
 import Button from "../../components/submitButton/submitButton";
+import { useRegisterMutation } from "../../lib/features/auth/authApiSlice";
 
-const Register =() => {
-  const navigator = useNavigate();
+const Register = () => {
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -16,6 +17,8 @@ const Register =() => {
   const [nameError, setNameError] = useState("");
 
   const [showLoader, setShowLoader] = useState(false);
+
+  const [register] = useRegisterMutation();
 
   const resetError = (type: string): void => {
     switch (type) {
@@ -32,33 +35,45 @@ const Register =() => {
   };
 
   const handleRedirect = (): void => {
-    navigator("/");
+    navigate("/");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!e.target.value) return;
+
     const isValid = validate(e.target.name, e.target.value);
 
     switch (e.target.name) {
       case "name":
-        if (!isValid.success) return setNameError(isValid.error.errors[0].message) ;
+        if (!isValid.success)
+          return setNameError(isValid.error.errors[0].message);
         return setName(e.target.value);
       case "email":
-        if (!isValid.success) return setEmailError(isValid.error.errors[0].message);
+        if (!isValid.success)
+          return setEmailError(isValid.error.errors[0].message);
         return setEmail(e.target.value);
       case "password":
-        if (!isValid.success) return setPasswordError(isValid.error.errors[0].message);
+        if (!isValid.success)
+          return setPasswordError(isValid.error.errors[0].message);
         return setPassword(e.target.value);
     }
     resetError(e.target.name);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name || !email || !password) return;
     setShowLoader(true);
-    //logica de register
-    setTimeout(() => setShowLoader(false), 5000);
+
+    try {
+      const newUser = await register({ name, email, password });
+
+      setTimeout(() => navigate("/"), 1000);
+    } catch (error: any) {
+      setPasswordError(
+        error.data.message ? error.data.message : "Erro inesperado"
+      );
+    }
   };
 
   return (
@@ -98,7 +113,7 @@ const Register =() => {
           </div>
           <div className="btn">
             <Button
-              text="Login"
+              text="Register"
               onSubmit={handleSubmit}
               loading={showLoader}
               disabled={showLoader}
@@ -111,6 +126,6 @@ const Register =() => {
       </main>
     </div>
   );
-}
+};
 
 export default Register;

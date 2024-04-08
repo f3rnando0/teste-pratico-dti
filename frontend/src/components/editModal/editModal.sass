@@ -1,0 +1,41 @@
+$primary: #0D1B2A
+$secondary: #1B263B
+$primary-text: #415A77
+$secondary-text: #778DA9
+$light: #E0E1DD
+
+.modal
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 1000
+    background-color: rgb(0, 0, 0, 0.5)
+    animation: showModal 0.5s
+
+.modal-style
+    position: fixed
+    left: 50%
+    top: 50%
+    -webkit-transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%)
+    width: 400px
+    height: 600px
+    background-color: $light
+    border-radius: 8px
+
+.close-icon
+    float: right
+    padding-right: 20px
+    padding-top: 20px
+
+.close-icon svg
+    cursor: pointer
+
+@keyframes showModal
+    from
+        opacity: 0
+
+    to
+        opacity: 1

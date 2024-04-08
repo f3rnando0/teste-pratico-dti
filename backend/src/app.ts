@@ -7,13 +7,20 @@ import { router } from "./routes";
 import { run } from "./database";
 import { ErrorHandlerMiddleware } from "./middleware/errorHandlerMiddleware";
 import BadRequestError from "./errors/badRequest";
+import { env } from "./env";
 
 export const app = express();
 run();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+app.use(
+  cors({
+    credentials: true,
+    origin: env.CLIENT_URL,
+  })
+);
 app.use("/api", router);
 app.all("*", () => {
   throw new BadRequestError({ code: 404, message: "Not Found" });
